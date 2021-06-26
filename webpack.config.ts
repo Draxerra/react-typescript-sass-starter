@@ -49,7 +49,7 @@ const config: Configuration = {
           require.resolve("resolve-url-loader"),
           {
             loader: require.resolve("sass-loader"),
-            options: { webpackImporter: true, sourceMap: true },
+            options: { sourceMap: true },
           },
         ],
       },
@@ -57,7 +57,7 @@ const config: Configuration = {
         test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
         loader: require.resolve("url-loader"),
         options: {
-          limit: 1,
+          limit: 10000,
         },
       },
     ],

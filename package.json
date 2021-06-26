@@ -55,7 +55,7 @@
     "workbox-webpack-plugin": "^6.1.5"
   },
   "scripts": {
-    "dev": "webpack serve --open --hot --history-api-fallback",
+    "dev": "webpack serve --hot --history-api-fallback",
     "build": "rm -rf ./dist && cross-env NODE_ENV=production webpack --progress"
   }
 }

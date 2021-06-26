@@ -8204,9 +8204,9 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"react-testing-3@workspace:.":
+"react-typescript-sass-webpack-starter@workspace:.":
   version: 0.0.0-use.local
-  resolution: "react-testing-3@workspace:."
+  resolution: "react-typescript-sass-webpack-starter@workspace:."
   dependencies:
     "@babel/core": ^7.14.6
     "@babel/preset-env": ^7.14.7

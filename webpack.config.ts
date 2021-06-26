@@ -31,6 +31,7 @@ const config: Configuration = {
             plugins: [!isProd && require.resolve("react-refresh/babel")].filter(
               Boolean
             ),
+            cacheDirectory: ".cache",
           },
         },
       },

@@ -1,4 +1,5 @@
 import { Configuration } from "webpack";
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
@@ -10,6 +11,20 @@ import WorkboxWebpackPlugin from "workbox-webpack-plugin";
 import path from "path";
 
 const isProd = process.env.NODE_ENV === "production";
+
+const getSassLoaders = (options: Record<string, unknown> = {}) => [
+  isProd ? MiniCssExtractPlugin.loader : require.resolve("style-loader"),
+  {
+    loader: require.resolve("css-loader"),
+    options: { sourceMap: !isProd, modules: options.modules },
+  },
+  require.resolve("postcss-loader"),
+  require.resolve("resolve-url-loader"),
+  {
+    loader: require.resolve("sass-loader"),
+    options: { sourceMap: true },
+  },
+];
 
 const config: Configuration = {
   devtool: !isProd && "eval-cheap-module-source-map",
@@ -37,21 +52,20 @@ const config: Configuration = {
       },
       {
         test: /\.scss$/,
-        use: [
-          isProd
-            ? MiniCssExtractPlugin.loader
-            : require.resolve("style-loader"),
-          {
-            loader: require.resolve("css-loader"),
-            options: { sourceMap: !isProd },
+        exclude: /\.module.scss$/,
+        use: getSassLoaders(),
+        sideEffects: true,
+      },
+      {
+        test: /\.module.scss$/,
+        use: getSassLoaders({
+          modules: {
+            localIdentName: isProd
+              ? "[hash:base64]"
+              : "[local]--[hash:base64:5]",
           },
-          require.resolve("postcss-loader"),
-          require.resolve("resolve-url-loader"),
-          {
-            loader: require.resolve("sass-loader"),
-            options: { sourceMap: true },
-          },
-        ],
+        }),
+        sideEffects: false,
       },
       {
         test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
@@ -81,6 +95,7 @@ const config: Configuration = {
     }),
     isProd && new WorkboxWebpackPlugin.GenerateSW(),
     isProd && new MiniCssExtractPlugin(),
+    isProd && new BundleAnalyzerPlugin(),
     !isProd && (new ReactRefreshWebpackPlugin() as any), // eslint-disable-line @typescript-eslint/no-explicit-any
   ].filter(Boolean),
 };

@@ -3,12 +3,12 @@ import { FC } from "react";
 import store from "./store";
 import { Provider } from "react-redux";
 
-import Counter from "./components/Counter";
+import AppTemplate from "./components/templates/AppTemplate";
 
 const App: FC = () => {
   return (
     <Provider store={store}>
-      <Counter />
+      <AppTemplate />
     </Provider>
   );
 };

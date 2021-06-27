@@ -1,0 +1,14 @@
+@use "breakpoints" as *;
+@use 'sass:math';
+
+@function calc-midpoint($min, $max) {
+  $min-width: map-get($breakpoints, small);
+  $max-width: map-get($breakpoints, large);
+
+  // Calculate mid point
+  // https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/
+  $slope: math.div($max - $min, $max-width - $min-width);
+  $intersection: -$min-width * $slope + $min;
+  $mid: calc(#{$intersection}rem + #{$slope * 100}vw);
+  @return $mid;
+}

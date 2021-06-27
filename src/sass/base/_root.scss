@@ -1,0 +1,24 @@
+@use '../abstracts' as abstracts;
+
+:root {
+  // Gen color variables
+  @each $color, $shades in abstracts.$colors {
+    @each $shade, $value in $shades {
+      --clr-#{$color}-#{$shade}: #{$value};
+    }
+  }
+
+  @each $size, $values in abstracts.$type-scale {
+    $small: map-get($values, small);
+    $large: map-get($values, large);
+
+    $mid: abstracts.calc-midpoint($small, $large);
+
+    // Responsive font size
+    --fs-#{$size}: clamp(#{$small}rem, #{$mid}, #{$large}rem);
+  }
+
+  --ltr-spacing: clamp(1em, #{abstracts.calc-midpoint(1, 5)}, 5em);
+  --ttb-spacing: clamp(1em, #{abstracts.calc-midpoint(1, 2)}, 2em);
+  --spacing: 1em;
+}

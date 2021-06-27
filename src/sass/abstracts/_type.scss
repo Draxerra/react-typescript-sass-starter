@@ -1,0 +1,32 @@
+$type-scale: (
+  // Minor third (x1.125) and Augmented fourth (x1.414)
+  200:
+    (
+      small: 0.8,
+      large: 0.8,
+    ),
+  300: (
+    small: 1,
+    large: 1,
+  ),
+  400: (
+    small: 1.125,
+    large: 1.414,
+  ),
+  500: (
+    small: 1.563,
+    large: 1.999,
+  ),
+  600: (
+    small: 1.953,
+    large: 2.827,
+  ),
+  700: (
+    small: 2.441,
+    large: 3.998,
+  ),
+  800: (
+    small: 3.052,
+    large: 5.653,
+  )
+);

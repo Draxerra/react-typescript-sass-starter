@@ -23,7 +23,7 @@ const config: Configuration = {
   module: {
     rules: [
       {
-        test: /\.[jt]sx$/,
+        test: /\.[jt]sx?$/,
         exclude: /node_modules/,
         use: {
           loader: require.resolve("babel-loader"),

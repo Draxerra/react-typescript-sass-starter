@@ -3251,6 +3251,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"core-js@npm:^3.15.1":
+  version: 3.15.1
+  resolution: "core-js@npm:3.15.1"
+  checksum: 162cc456311d54da079f9bf447a86f626c443f2893a2541fe159b520ec38730c0200fa61c9ce5a3743f450e36024ac754f5c0a2ca22053d60be8b4cfee6c4d2e
+  languageName: node
+  linkType: hard
+
 "core-util-is@npm:~1.0.0":
   version: 1.0.2
   resolution: "core-util-is@npm:1.0.2"
@@ -8304,6 +8311,7 @@ fsevents@~2.3.2:
     "@typescript-eslint/eslint-plugin": ^4.28.0
     "@typescript-eslint/parser": ^4.28.0
     babel-loader: ^8.2.2
+    core-js: ^3.15.1
     cross-env: ^7.0.3
     css-loader: ^5.2.6
     css-minimizer-webpack-plugin: ^3.0.2
@@ -8325,6 +8333,7 @@ fsevents@~2.3.2:
     react-dom: ^17.0.2
     react-redux: ^7.2.4
     react-refresh: ^0.10.0
+    regenerator-runtime: ^0.13.7
     resolve-url-loader: ^4.0.0
     sass: ^1.35.1
     sass-loader: ^12.1.0
@@ -8333,7 +8342,7 @@ fsevents@~2.3.2:
     ts-node: ^10.0.0
     tsconfig-paths: ^3.9.0
     tsconfig-paths-webpack-plugin: ^3.5.1
-    typescript: ^4.3.4
+    typescript: ^4.3.2
     url-loader: ^4.1.1
     webpack: ^5.40.0
     webpack-cli: ^4.7.2
@@ -8439,7 +8448,7 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"regenerator-runtime@npm:^0.13.4":
+"regenerator-runtime@npm:^0.13.4, regenerator-runtime@npm:^0.13.7":
   version: 0.13.8
   resolution: "regenerator-runtime@npm:0.13.8"
   checksum: 20178f5753f181d59691e5c3b4c59a2769987f75c7ccf325777673b5478acca61a553b10e895585086c222f72f5ee428090acf50320264de4b79f630f7388653
@@ -9953,7 +9962,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-typescript@^4.3.4:
+typescript@^4.3.2:
   version: 4.3.4
   resolution: "typescript@npm:4.3.4"
   bin:
@@ -9963,7 +9972,7 @@ typescript@^4.3.4:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.3.4#builtin<compat/typescript>":
+"typescript@patch:typescript@^4.3.2#builtin<compat/typescript>":
   version: 4.3.4
   resolution: "typescript@patch:typescript@npm%3A4.3.4#builtin<compat/typescript>::version=4.3.4&hash=ddfc1b"
   bin:

@@ -10,7 +10,7 @@ const AppTemplate: FC = () => {
     <Router>
       <main className={styles["app-template"]}>
         <Switch>
-          <Route path="/">
+          <Route exact path="/">
             <AppHome />
           </Route>
         </Switch>

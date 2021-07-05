@@ -5,7 +5,7 @@ import counter from "./counter";
 
 const store = configureStore({
   reducer: {
-    counter: counter,
+    counter,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });

@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App Home should render 1`] = `
+<DocumentFragment>
+  <div
+    class="app-home"
+  >
+    <div
+      class="app-counter"
+    >
+      <span
+        class="app-counter__text"
+      >
+        Current Count: 0
+      </span>
+      <button
+        aria-label="Increment value"
+        class="counter-increment app-button"
+      >
+        Increment
+      </button>
+      <button
+        aria-label="Decrement value"
+        class="counter-decrement app-button"
+      >
+        Decrement
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

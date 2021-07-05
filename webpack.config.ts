@@ -65,7 +65,6 @@ const config: Configuration = {
               : "[local]--[hash:base64:5]",
           },
         }),
-        sideEffects: false,
       },
       {
         test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],

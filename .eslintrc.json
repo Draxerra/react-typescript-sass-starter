@@ -36,7 +36,11 @@
         "src/**/__tests__/**/*.{ts,tsx}",
         "src/**/*.{spec,test}.{ts,tsx}"
       ],
-      "extends": ["plugin:jest/recommended", "plugin:testing-library/react"]
+      "extends": [
+        "plugin:jest/recommended",
+        "plugin:jest-dom/recommended",
+        "plugin:testing-library/react"
+      ]
     },
     {
       "files": ["src/**/*.e2e.{ts,tsx}"],

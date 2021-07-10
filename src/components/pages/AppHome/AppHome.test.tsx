@@ -22,7 +22,7 @@ describe("App Home", () => {
       reducers: { counter },
       preloadedState: { counter: { value: 500 } },
     });
-    expect(screen.getByText("Current Count: 500")).toBeTruthy();
+    expect(screen.getByText("Current Count: 500")).toBeInTheDocument();
   });
 
   it("should fire increment action", () => {
@@ -41,7 +41,7 @@ describe("App Home", () => {
     });
     const incrementBtn = screen.getByText("Increment");
     userEvent.click(incrementBtn);
-    expect(screen.getByText("Current Count: 1")).toBeTruthy();
+    expect(screen.getByText("Current Count: 1")).toBeInTheDocument();
   });
 
   it("should fire decrement action", () => {
@@ -60,6 +60,6 @@ describe("App Home", () => {
     });
     const decrementBtn = screen.getByText("Decrement");
     userEvent.click(decrementBtn);
-    expect(screen.getByText("Current Count: -1")).toBeTruthy();
+    expect(screen.getByText("Current Count: -1")).toBeInTheDocument();
   });
 });

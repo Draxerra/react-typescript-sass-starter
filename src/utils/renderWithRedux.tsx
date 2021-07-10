@@ -8,12 +8,12 @@ type Render = ReturnType<typeof render>;
 type StoreParams = Parameters<typeof configureStore>;
 type Store = ReturnType<typeof configureStore>;
 
-interface RenderWithReduxOptions {
+type RenderWithReduxOptions = {
   preloadedState?: StoreParams[0]["preloadedState"];
   reducers: StoreParams[0]["reducer"];
-  renderOptions?: RenderParams[1];
   store?: Store;
-}
+} & RenderParams[1];
+
 const renderWithRedux: (
   ui: RenderParams[0],
   opts: RenderWithReduxOptions
@@ -23,11 +23,14 @@ const renderWithRedux: (
     preloadedState = {},
     reducers,
     store = configureStore({ reducer: reducers, preloadedState }),
+    wrapper: WrapperElement,
     ...renderOptions
   }
 ) => {
   const Wrapper: FC = ({ children }) => (
-    <Provider store={store}>{children}</Provider>
+    <Provider store={store}>
+      {WrapperElement ? <WrapperElement>{children}</WrapperElement> : children}
+    </Provider>
   );
   return render(ui, { wrapper: Wrapper, ...renderOptions });
 };

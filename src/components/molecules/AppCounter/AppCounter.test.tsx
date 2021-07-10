@@ -3,7 +3,7 @@ import { screen, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 describe("App Counter", () => {
-  it("should render", () => {
+  it("should match snapshot", () => {
     const decrement = jest.fn();
     const increment = jest.fn();
     const counter = render(

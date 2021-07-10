@@ -10,7 +10,7 @@ describe("App Home", () => {
     jest.restoreAllMocks();
   });
 
-  it("should render", () => {
+  it("should match snapshot", () => {
     const home = renderWithRedux(<AppHome />, {
       reducers: { counter },
     }).asFragment();

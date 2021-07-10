@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`App Home should render 1`] = `
+exports[`App Home should match snapshot 1`] = `
 <DocumentFragment>
   <div
     class="app-home"

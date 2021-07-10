@@ -9,6 +9,7 @@ import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import TerserWebpackPlugin from "terser-webpack-plugin";
 import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
+import { WebpackManifestPlugin } from "webpack-manifest-plugin";
 import WorkboxWebpackPlugin from "workbox-webpack-plugin";
 import path from "path";
 import fs from "fs";
@@ -18,7 +19,9 @@ const publicPath = "";
 const swSrc = "./src/service-worker.ts";
 
 const getSassLoaders = (options: Record<string, unknown> = {}) => [
-  isProd ? MiniCssExtractPlugin.loader : require.resolve("style-loader"),
+  isProd
+    ? { loader: MiniCssExtractPlugin.loader, options: { publicPath: "../../" } }
+    : require.resolve("style-loader"),
   {
     loader: require.resolve("css-loader"),
     options: { sourceMap: !isProd, modules: options.modules },
@@ -36,7 +39,9 @@ const config: Configuration = {
   entry: "./src/index.tsx",
   target: isProd ? "browserslist" : "web",
   output: {
-    filename: "app.bundle.js",
+    filename: `static/js/${
+      isProd ? "[name].[contenthash].js" : "app.bundle.js"
+    }`,
     path: path.resolve(__dirname, "dist"),
     publicPath,
   },
@@ -77,11 +82,19 @@ const config: Configuration = {
         loader: require.resolve("url-loader"),
         options: {
           limit: 10000,
+          name: `static/assets/${
+            isProd ? "[name].[hash:base64].[ext]" : "[name].[ext]"
+          }`,
         },
       },
       {
-        test: [/\.woff2?$/, /\.svg$/, /\.webp$/],
+        test: [/\.woff2?$/, /\.ttf$/, /\.svg$/, /\.webp$/],
         loader: require.resolve("file-loader"),
+        options: {
+          name: `static/assets/${
+            isProd ? "[name].[hash:base64].[ext]" : "[name].[ext]"
+          }`,
+        },
       },
     ],
   },
@@ -101,7 +114,9 @@ const config: Configuration = {
       PUBLIC_PATH: publicPath,
     }),
     new DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+      "process.env.NODE_ENV": JSON.stringify(
+        process.env.NODE_ENV || "development"
+      ),
       "process.env.PUBLIC_PATH": JSON.stringify(publicPath),
     }),
     new CopyWebpackPlugin({
@@ -125,12 +140,25 @@ const config: Configuration = {
       new WorkboxWebpackPlugin.InjectManifest({
         swSrc,
         dontCacheBustURLsMatching: /\.[0-9a-f]{8}\./,
-        exclude: [/LICENSE/],
+        exclude: [/LICENSE/, /asset-report\.html$/, /asset-manifest\.json$/],
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
       }),
-    //isProd && new WebpackManifestPlugin(),
-    isProd && new MiniCssExtractPlugin(),
-    //isProd && new BundleAnalyzerPlugin(),
+    isProd &&
+      new WebpackManifestPlugin({
+        fileName: "asset-manifest.json",
+        publicPath,
+      }),
+    isProd &&
+      new MiniCssExtractPlugin({
+        filename: "static/css/[name].[contenthash].css",
+        chunkFilename: "static/css/[name].[contenthash].chunk.css",
+      }),
+    isProd &&
+      new BundleAnalyzerPlugin({
+        analyzerMode: "static",
+        reportFilename: "asset-report.html",
+        openAnalyzer: false,
+      }),
     !isProd && (new ReactRefreshWebpackPlugin() as any), // eslint-disable-line @typescript-eslint/no-explicit-any
   ].filter(Boolean),
 };

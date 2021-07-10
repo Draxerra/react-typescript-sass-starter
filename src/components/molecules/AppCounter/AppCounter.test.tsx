@@ -1,5 +1,5 @@
 import AppCounter from "./AppCounter";
-import { render } from "@testing-library/react";
+import { screen, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 describe("App Counter", () => {
@@ -17,12 +17,12 @@ describe("App Counter", () => {
   it("should fire decrement on counter-decrement click", () => {
     const decrement = jest.fn();
     const increment = jest.fn();
-    const { getByText } = render(
+    render(
       <AppCounter decrement={decrement} increment={increment}>
         10
       </AppCounter>
     );
-    const decrementBtn = getByText("Decrement");
+    const decrementBtn = screen.getByText("Decrement");
     userEvent.click(decrementBtn);
     expect(decrement).toHaveBeenCalledTimes(1);
   });
@@ -30,12 +30,12 @@ describe("App Counter", () => {
   it("should fire icrement on counter-icrement click", () => {
     const decrement = jest.fn();
     const increment = jest.fn();
-    const { getByText } = render(
+    render(
       <AppCounter decrement={decrement} increment={increment}>
         10
       </AppCounter>
     );
-    const incrementBtn = getByText("Increment");
+    const incrementBtn = screen.getByText("Increment");
     userEvent.click(incrementBtn);
     expect(increment).toHaveBeenCalledTimes(1);
   });

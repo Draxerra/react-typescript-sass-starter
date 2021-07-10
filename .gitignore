@@ -1,3 +1,4 @@
+# Yarn
 .yarn/*
 !.yarn/patches
 !.yarn/releases
@@ -5,11 +6,16 @@
 !.yarn/sdks
 !.yarn/versions
 .pnp.*
-dist
-coverage
-.DS_Store
 
-# Swap the comments on the following lines if you don't wish to use zero-installs
-# Documentation here: https://yarnpkg.com/features/zero-installs
-#!/.yarn/cache
+# Build folders
+dist
 node_modules
+coverage
+
+# Test
+src/e2e/videos
+src/e2e/downloads
+src/e2e/screenshots
+
+# Other
+.DS_Store

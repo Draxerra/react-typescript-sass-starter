@@ -4,7 +4,6 @@ import CopyWebpackPlugin from "copy-webpack-plugin";
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
-import InterpolateHtmlPlugin from "react-dev-utils/InterpolateHtmlPlugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import TerserWebpackPlugin from "terser-webpack-plugin";
@@ -15,7 +14,6 @@ import path from "path";
 import fs from "fs";
 
 const isProd = process.env.NODE_ENV === "production";
-const publicPath = "";
 const swSrc = "./src/service-worker.ts";
 
 const getSassLoaders = (options: Record<string, unknown> = {}) => [
@@ -43,7 +41,7 @@ const config: Configuration = {
       isProd ? "[name].[contenthash].js" : "app.bundle.js"
     }`,
     path: path.resolve(__dirname, "dist"),
-    publicPath,
+    publicPath: "/",
   },
   mode: isProd ? "production" : "development",
   module: {
@@ -108,22 +106,17 @@ const config: Configuration = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./public/index.html",
-      publicPath,
-    }),
-    new InterpolateHtmlPlugin(HtmlWebpackPlugin, {
-      PUBLIC_PATH: publicPath,
     }),
     new DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify(
         process.env.NODE_ENV || "development"
       ),
-      "process.env.PUBLIC_PATH": JSON.stringify(publicPath),
     }),
     new CopyWebpackPlugin({
       patterns: [
         {
           from: "public",
-          to: `.${publicPath}`,
+          to: "",
           globOptions: {
             ignore: ["**/index.html"],
           },
@@ -146,7 +139,7 @@ const config: Configuration = {
     isProd &&
       new WebpackManifestPlugin({
         fileName: "asset-manifest.json",
-        publicPath,
+        publicPath: "/",
       }),
     isProd &&
       new MiniCssExtractPlugin({

@@ -38,7 +38,10 @@ const config: Configuration = {
   target: isProd ? "browserslist" : "web",
   output: {
     filename: `static/js/${
-      isProd ? "[name].[contenthash].js" : "app.bundle.js"
+      isProd ? "[name].[contenthash].js" : "[name].bundle.js"
+    }`,
+    chunkFilename: `static/js/${
+      isProd ? "[name].[contenthash].chunk.js" : "[name].bundle.js"
     }`,
     path: path.resolve(__dirname, "dist"),
     publicPath: "/",
@@ -79,11 +82,19 @@ const config: Configuration = {
         }),
       },
       {
-        test: [/\.avif$/, /\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+        test: [
+          /\.avif$/,
+          /\.bmp$/,
+          /\.gif$/,
+          /\.jpe?g$/,
+          /\.png$/,
+          /\.svg$/,
+          /\.webp$/,
+        ],
         type: "asset",
       },
       {
-        test: [/\.woff2?$/, /\.ttf$/, /\.svg$/, /\.webp$/],
+        test: [/\.woff2?$/, /\.ttf$/],
         type: "asset/resource",
       },
     ],

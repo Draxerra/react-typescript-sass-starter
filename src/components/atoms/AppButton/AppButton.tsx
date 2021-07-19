@@ -5,12 +5,10 @@ import styles from "./AppButton.module.scss";
 
 type AppButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-const AppButton: FC<AppButtonProps> = ({ children, className, ...props }) => {
-  return (
-    <button {...props} className={classNames(className, styles["app-button"])}>
-      {children}
-    </button>
-  );
-};
+const AppButton: FC<AppButtonProps> = ({ children, className, ...props }) => (
+  <button {...props} className={classNames(className, styles["app-button"])}>
+    {children}
+  </button>
+);
 
 export default AppButton;

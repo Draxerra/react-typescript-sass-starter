@@ -5,12 +5,10 @@ import { Provider } from "react-redux";
 
 import AppTemplate from "./components/templates/AppTemplate";
 
-const App: FC = () => {
-  return (
-    <Provider store={store}>
-      <AppTemplate />
-    </Provider>
-  );
-};
+const App: FC = () => (
+  <Provider store={store}>
+    <AppTemplate />
+  </Provider>
+);
 
 export default App;

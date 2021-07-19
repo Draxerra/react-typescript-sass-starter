@@ -5,18 +5,16 @@ import styles from "./AppTemplate.module.scss";
 
 import AppHome from "~/components/pages/AppHome";
 
-const AppTemplate: FC = () => {
-  return (
-    <Router>
-      <main className={styles["app-template"]}>
-        <Switch>
-          <Route exact path="/">
-            <AppHome />
-          </Route>
-        </Switch>
-      </main>
-    </Router>
-  );
-};
+const AppTemplate: FC = () => (
+  <Router>
+    <main className={styles["app-template"]}>
+      <Switch>
+        <Route exact path="/">
+          <AppHome />
+        </Route>
+      </Switch>
+    </main>
+  </Router>
+);
 
 export default AppTemplate;

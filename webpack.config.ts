@@ -42,6 +42,9 @@ const config: Configuration = {
     }`,
     path: path.resolve(__dirname, "dist"),
     publicPath: "/",
+    assetModuleFilename: `static/assets/${
+      isProd ? "[name].[hash:base64][ext]" : "[name][ext]"
+    }`,
   },
   mode: isProd ? "production" : "development",
   module: {
@@ -77,22 +80,11 @@ const config: Configuration = {
       },
       {
         test: [/\.avif$/, /\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
-        loader: require.resolve("url-loader"),
-        options: {
-          limit: 10000,
-          name: `static/assets/${
-            isProd ? "[name].[hash:base64].[ext]" : "[name].[ext]"
-          }`,
-        },
+        type: "asset",
       },
       {
         test: [/\.woff2?$/, /\.ttf$/, /\.svg$/, /\.webp$/],
-        loader: require.resolve("file-loader"),
-        options: {
-          name: `static/assets/${
-            isProd ? "[name].[hash:base64].[ext]" : "[name].[ext]"
-          }`,
-        },
+        type: "asset/resource",
       },
     ],
   },
@@ -101,7 +93,8 @@ const config: Configuration = {
     plugins: [new TsconfigPathsPlugin()],
   },
   optimization: {
-    minimizer: [new CssMinimizerPlugin(), new TerserWebpackPlugin()],
+    minimize: true,
+    minimizer: [new CssMinimizerPlugin() as any, new TerserWebpackPlugin()], // eslint-disable-line @typescript-eslint/no-explicit-any
   },
   plugins: [
     new HtmlWebpackPlugin({

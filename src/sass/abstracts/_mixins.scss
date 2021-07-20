@@ -1,20 +1,13 @@
 @use "breakpoints" as *;
 
-@mixin pseudo($top: 0, $right: 0, $bottom: 0, $left: 0) {
-  position: absolute;
-  inset: $top $right $bottom $left;
-  @supports not (inset: 5em) {
-    top: $top;
-    right: $right;
-    left: $left;
-    bottom: $bottom;
-  }
-  @content;
-}
-
 @mixin mq($size) {
-  $breakpoint: map-get($breakpoints, $size);
-  @media (min-width: #{$breakpoint}rem) {
-    @content;
+  @if map_has_key($breakpoints, $size) {
+    $breakpoint: map-get($breakpoints, $size);
+    @media only screen and (min-width: #{$breakpoint}rem) {
+      @content;
+    }
+  } @else {
+    $keys: map-keys($breakpoints);
+    @error "Breakpoint #{$size} does not exist. Accepted breakpoints: #{$keys}.";
   }
 }

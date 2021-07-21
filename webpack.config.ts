@@ -28,7 +28,9 @@ const getSassLoaders = (options: Record<string, unknown> = {}) => [
   require.resolve("resolve-url-loader"),
   {
     loader: require.resolve("sass-loader"),
-    options: { sourceMap: true },
+    options: {
+      sourceMap: true,
+    },
   },
 ];
 
@@ -100,7 +102,10 @@ const config: Configuration = {
     ],
   },
   resolve: {
-    extensions: [".js", ".ts", ".jsx", ".tsx", ".scss"],
+    extensions: [".js", ".ts", ".tsx"],
+    alias: {
+      "~": path.resolve(__dirname, "src"),
+    },
     plugins: [new TsconfigPathsPlugin()],
   },
   optimization: {

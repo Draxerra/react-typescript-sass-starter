@@ -1,11 +1,14 @@
+@use "~/sass/abstracts" as abstracts;
+
 .app-counter {
   display: grid;
-  grid-template-columns: 1fr 1fr;
   place-items: center;
   gap: var(--spacing);
   &__text {
     font-size: var(--fs-500);
-    grid-column: span 2;
+    @include abstracts.mq(small) {
+      grid-column: span 2;
+    }
   }
   &__actions {
     display: flex;

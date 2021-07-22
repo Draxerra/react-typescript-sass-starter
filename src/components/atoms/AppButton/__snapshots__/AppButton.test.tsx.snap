@@ -3,7 +3,7 @@
 exports[`App Button should match snapshot 1`] = `
 <DocumentFragment>
   <button
-    class="test app-button"
+    class="app-button"
   >
     Test
   </button>

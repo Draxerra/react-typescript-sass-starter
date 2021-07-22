@@ -16,24 +16,6 @@ import fs from "fs";
 const isProd = process.env.NODE_ENV === "production";
 const swSrc = "./src/service-worker.ts";
 
-const getSassLoaders = (options: Record<string, unknown> = {}) => [
-  isProd
-    ? { loader: MiniCssExtractPlugin.loader, options: { publicPath: "../../" } }
-    : require.resolve("style-loader"),
-  {
-    loader: require.resolve("css-loader"),
-    options: { sourceMap: !isProd, modules: options.modules },
-  },
-  require.resolve("postcss-loader"),
-  require.resolve("resolve-url-loader"),
-  {
-    loader: require.resolve("sass-loader"),
-    options: {
-      sourceMap: true,
-    },
-  },
-];
-
 const config: Configuration = {
   devtool: !isProd && "eval-cheap-module-source-map",
   entry: "./src/index.tsx",
@@ -69,19 +51,35 @@ const config: Configuration = {
       },
       {
         test: /\.scss$/,
-        exclude: /\.module.scss$/,
-        use: getSassLoaders(),
-        sideEffects: true,
-      },
-      {
-        test: /\.module.scss$/,
-        use: getSassLoaders({
-          modules: {
-            localIdentName: isProd
-              ? "[hash:base64]"
-              : "[local]--[hash:base64:5]",
+        use: [
+          isProd
+            ? {
+                loader: MiniCssExtractPlugin.loader,
+                options: { publicPath: "../../" },
+              }
+            : require.resolve("style-loader"),
+          {
+            loader: require.resolve("css-loader"),
+            options: {
+              sourceMap: !isProd,
+              modules: {
+                auto: true,
+                localIdentName: isProd
+                  ? "[hash:base64]"
+                  : "[local]--[hash:base64:5]",
+              },
+              importLoaders: 3,
+            },
           },
-        }),
+          require.resolve("postcss-loader"),
+          require.resolve("resolve-url-loader"),
+          {
+            loader: require.resolve("sass-loader"),
+            options: {
+              sourceMap: true,
+            },
+          },
+        ],
       },
       {
         test: [
@@ -103,9 +101,6 @@ const config: Configuration = {
   },
   resolve: {
     extensions: [".js", ".ts", ".tsx"],
-    alias: {
-      "~": path.resolve(__dirname, "src"),
-    },
     plugins: [new TsconfigPathsPlugin()],
   },
   optimization: {

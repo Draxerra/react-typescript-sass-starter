@@ -2,34 +2,57 @@
 
 exports[`App Template should match snapshot 1`] = `
 <DocumentFragment>
-  <main
+  <div
     class="app-template"
   >
-    <div
-      class="app-home"
+    <nav
+      class="app-nav"
+    >
+      <a
+        aria-current="page"
+        aria-label="Navigate to Home Page"
+        class="app-link-button app-link-button--active app-button"
+        href="/"
+      >
+        Home
+      </a>
+      <a
+        aria-label="Navigate to Contact Page"
+        class="app-link-button app-button"
+        href="/contact"
+      >
+        Contact
+      </a>
+    </nav>
+    <main
+      class="app-template__main"
     >
       <div
-        class="app-counter"
+        class="app-home"
       >
-        <span
-          class="app-counter__text"
+        <div
+          class="app-counter"
         >
-          Current Count: 0
-        </span>
-        <button
-          aria-label="Increment value"
-          class="counter-increment app-button"
-        >
-          Increment
-        </button>
-        <button
-          aria-label="Decrement value"
-          class="counter-decrement app-button"
-        >
-          Decrement
-        </button>
+          <span
+            class="app-counter__text"
+          >
+            Current Count: 0
+          </span>
+          <button
+            aria-label="Increment value"
+            class="counter-increment app-button"
+          >
+            Increment
+          </button>
+          <button
+            aria-label="Decrement value"
+            class="counter-decrement app-button"
+          >
+            Decrement
+          </button>
+        </div>
       </div>
-    </div>
-  </main>
+    </main>
+  </div>
 </DocumentFragment>
 `;

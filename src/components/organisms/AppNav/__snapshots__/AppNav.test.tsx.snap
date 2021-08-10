@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App Nav should match snapshot 1`] = `
+<DocumentFragment>
+  <nav
+    class="app-nav"
+  >
+    <a
+      aria-current="page"
+      aria-label="Navigate to Home Page"
+      class="app-link-button app-link-button--active app-button"
+      href="/"
+    >
+      Home
+    </a>
+    <a
+      aria-label="Navigate to Contact Page"
+      class="app-link-button app-button"
+      href="/contact"
+    >
+      Contact
+    </a>
+  </nav>
+</DocumentFragment>
+`;

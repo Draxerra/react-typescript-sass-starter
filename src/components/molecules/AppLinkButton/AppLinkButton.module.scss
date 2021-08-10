@@ -1,0 +1,24 @@
+.app-link-button {
+  text-decoration: none;
+  color: inherit;
+  box-shadow: none;
+  border-radius: 0;
+
+  color: var(--clr-neutral-900);
+  background-color: var(--clr-neutral-100);
+
+  &--active {
+    background-color: var(--clr-primary-500);
+    color: var(--clr-neutral-900);
+  }
+
+  &:first-child {
+    border-top-left-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+  }
+
+  &:last-child {
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+  }
+}

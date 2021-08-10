@@ -6,7 +6,7 @@ import { decrement, increment } from "~/store/counter";
 
 import AppCounter from "~/components/molecules/AppCounter";
 
-type AppHomeProps = React.HTMLAttributes<HTMLDivElement>;
+type AppHomeProps = JSX.IntrinsicElements["div"];
 const AppHome: FC<AppHomeProps> = ({ className, ...props }) => {
   const count = useAppSelector((state) => state.counter.value);
   const dispatch = useAppDispatch();

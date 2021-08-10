@@ -1,3 +1,5 @@
+delete process.env.TS_NODE_COMPILER_OPTIONS;
+
 import { Configuration, DefinePlugin } from "webpack";
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 import CopyWebpackPlugin from "copy-webpack-plugin";
@@ -10,11 +12,75 @@ import TerserWebpackPlugin from "terser-webpack-plugin";
 import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
 import { WebpackManifestPlugin } from "webpack-manifest-plugin";
 import WorkboxWebpackPlugin from "workbox-webpack-plugin";
+import glob from "glob";
 import path from "path";
 import fs from "fs";
 
+const PreloadWebpackPlugin = require("@vue/preload-webpack-plugin"); // eslint-disable-line @typescript-eslint/no-var-requires
 const isProd = process.env.NODE_ENV === "production";
 const swSrc = "./src/service-worker.ts";
+
+const getPreloader = (entry: string) => {
+  if (/\.css$/.test(entry)) return "style";
+  if (/\.woff2?$/.test(entry)) return "font";
+  if (/\.(avif|bmp|gif|jpe?g|png|svg|webp)$/.test(entry)) return "image";
+  return "script";
+};
+
+const getSassLoaders = (modules: boolean) => [
+  isProd
+    ? {
+        loader: MiniCssExtractPlugin.loader,
+        options: { publicPath: "../../" },
+      }
+    : require.resolve("style-loader"),
+  {
+    loader: require.resolve("css-loader"),
+    options: {
+      sourceMap: !isProd,
+      modules: modules
+        ? {
+            localIdentName: isProd
+              ? "[hash:base64]"
+              : "[local]--[hash:base64:5]",
+          }
+        : false,
+      importLoaders: 3,
+    },
+  },
+  {
+    loader: require.resolve("postcss-loader"),
+    options: isProd
+      ? {
+          postcssOptions: {
+            plugins: [
+              [
+                "@fullhuman/postcss-purgecss",
+                {
+                  content: [
+                    path.join(__dirname, "./public/index.html"),
+                    ...glob.sync(
+                      `${path.join(__dirname, "src")}/**/*.{ts,tsx}`,
+                      {
+                        nodir: true,
+                      }
+                    ),
+                  ],
+                },
+              ],
+            ],
+          },
+        }
+      : {},
+  },
+  require.resolve("resolve-url-loader"),
+  {
+    loader: require.resolve("sass-loader"),
+    options: {
+      sourceMap: true,
+    },
+  },
+];
 
 const config: Configuration = {
   devtool: !isProd && "eval-cheap-module-source-map",
@@ -25,7 +91,7 @@ const config: Configuration = {
       isProd ? "[name].[contenthash].js" : "[name].bundle.js"
     }`,
     chunkFilename: `static/js/${
-      isProd ? "[name].[contenthash].chunk.js" : "[name].bundle.js"
+      isProd ? "[name].[contenthash].chunk.js" : "[name].chunk.js"
     }`,
     path: path.resolve(__dirname, "dist"),
     publicPath: "/",
@@ -37,7 +103,7 @@ const config: Configuration = {
   module: {
     rules: [
       {
-        test: /\.[jt]sx?$/,
+        test: /\.tsx?$/,
         exclude: /node_modules/,
         use: {
           loader: require.resolve("babel-loader"),
@@ -48,38 +114,18 @@ const config: Configuration = {
             cacheDirectory: true,
           },
         },
+        sideEffects: false,
       },
       {
         test: /\.scss$/,
-        use: [
-          isProd
-            ? {
-                loader: MiniCssExtractPlugin.loader,
-                options: { publicPath: "../../" },
-              }
-            : require.resolve("style-loader"),
-          {
-            loader: require.resolve("css-loader"),
-            options: {
-              sourceMap: !isProd,
-              modules: {
-                auto: true,
-                localIdentName: isProd
-                  ? "[hash:base64]"
-                  : "[local]--[hash:base64:5]",
-              },
-              importLoaders: 3,
-            },
-          },
-          require.resolve("postcss-loader"),
-          require.resolve("resolve-url-loader"),
-          {
-            loader: require.resolve("sass-loader"),
-            options: {
-              sourceMap: true,
-            },
-          },
-        ],
+        exclude: /\.module.scss$/,
+        use: getSassLoaders(false),
+        sideEffects: true,
+      },
+      {
+        test: /\.module.scss$/,
+        use: getSassLoaders(true),
+        sideEffects: false,
       },
       {
         test: [
@@ -104,8 +150,8 @@ const config: Configuration = {
     plugins: [new TsconfigPathsPlugin()],
   },
   optimization: {
-    minimize: true,
-    minimizer: [new CssMinimizerPlugin() as any, new TerserWebpackPlugin()], // eslint-disable-line @typescript-eslint/no-explicit-any
+    minimize: isProd,
+    minimizer: [new CssMinimizerPlugin(), new TerserWebpackPlugin()],
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -132,6 +178,17 @@ const config: Configuration = {
         files: "./src/**/*.{ts,tsx,js,jsx}",
       },
     }),
+    isProd &&
+      new PreloadWebpackPlugin({
+        rel: "preload",
+        as: getPreloader,
+        include: "initial",
+      }),
+    isProd &&
+      new PreloadWebpackPlugin({
+        rel: "prefetch",
+        as: getPreloader,
+      }),
     isProd &&
       fs.existsSync(swSrc) &&
       new WorkboxWebpackPlugin.InjectManifest({

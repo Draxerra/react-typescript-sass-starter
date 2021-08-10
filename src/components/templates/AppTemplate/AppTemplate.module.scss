@@ -1,5 +1,16 @@
 .app-template {
-  display: grid;
-  place-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
   min-height: 100vh;
+  padding: 1em;
+
+  &__main {
+    display: grid;
+    place-content: center;
+
+    flex: 1;
+  }
 }

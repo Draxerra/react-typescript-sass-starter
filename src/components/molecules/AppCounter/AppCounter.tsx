@@ -5,10 +5,11 @@ import styles from "./AppCounter.module.scss";
 
 import AppButton from "~/components/atoms/AppButton";
 
-interface AppCounterProps extends React.HTMLAttributes<HTMLDivElement> {
+type AppCounterProps = {
   decrement: () => void;
   increment: () => void;
-}
+} & JSX.IntrinsicElements["div"];
+
 const AppCounter: FC<AppCounterProps> = ({
   decrement,
   increment,

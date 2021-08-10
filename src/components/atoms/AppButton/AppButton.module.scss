@@ -10,6 +10,7 @@
 
   &:hover,
   &:focus-visible {
+    outline: none;
     background-color: var(--clr-primary-300);
   }
 

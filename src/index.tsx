@@ -1,5 +1,3 @@
-import "regenerator-runtime";
-
 import { render } from "react-dom";
 import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";

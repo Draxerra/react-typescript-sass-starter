@@ -1,5 +1,4 @@
 import { FC } from "react";
-import classNames from "classnames";
 
 import { useAppDispatch, useAppSelector } from "~/store";
 import { decrement, increment } from "~/store/counter";
@@ -7,12 +6,12 @@ import { decrement, increment } from "~/store/counter";
 import AppCounter from "~/components/molecules/AppCounter";
 
 type AppHomeProps = JSX.IntrinsicElements["div"];
-const AppHome: FC<AppHomeProps> = ({ className, ...props }) => {
+const AppHome: FC<AppHomeProps> = ({ ...props }) => {
   const count = useAppSelector((state) => state.counter.value);
   const dispatch = useAppDispatch();
 
   return (
-    <div {...props} className={classNames(className)}>
+    <div {...props}>
       <AppCounter
         decrement={() => dispatch(decrement())}
         increment={() => dispatch(increment())}

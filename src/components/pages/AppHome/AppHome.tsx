@@ -12,7 +12,7 @@ const AppHome: FC<AppHomeProps> = ({ className, ...props }) => {
   const dispatch = useAppDispatch();
 
   return (
-    <div {...props} className={classNames(className, "app-home")}>
+    <div {...props} className={classNames(className)}>
       <AppCounter
         decrement={() => dispatch(decrement())}
         increment={() => dispatch(increment())}

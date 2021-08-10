@@ -3,7 +3,7 @@ import classNames from "classnames";
 
 type AppContactProps = JSX.IntrinsicElements["div"];
 const AppContact: FC<AppContactProps> = ({ className, ...props }) => (
-  <div {...props} className={classNames(className, "app-contact")}>
+  <div {...props} className={classNames(className)}>
     Contact Page
   </div>
 );

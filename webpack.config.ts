@@ -150,7 +150,11 @@ const config: Configuration = {
   },
   optimization: {
     minimize: isProd,
-    minimizer: ["...", new CssMinimizerPlugin()],
+    minimizer: ["...", new CssMinimizerPlugin() as any], // eslint-disable-line @typescript-eslint/no-explicit-any
+    splitChunks: {
+      chunks: "all",
+    },
+    runtimeChunk: true,
   },
   plugins: [
     new HtmlWebpackPlugin({

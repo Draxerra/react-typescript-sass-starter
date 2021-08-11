@@ -218,6 +218,10 @@ const config: Configuration = {
       }),
     !isProd && (new ReactRefreshWebpackPlugin() as any), // eslint-disable-line @typescript-eslint/no-explicit-any
   ].filter(Boolean),
+  performance: {
+    maxEntrypointSize: 400000,
+    maxAssetSize: 300000,
+  },
 };
 
 export default config;

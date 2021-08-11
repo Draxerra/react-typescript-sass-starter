@@ -8,7 +8,6 @@ import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
-import TerserWebpackPlugin from "terser-webpack-plugin";
 import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
 import { WebpackManifestPlugin } from "webpack-manifest-plugin";
 import WorkboxWebpackPlugin from "workbox-webpack-plugin";
@@ -83,7 +82,7 @@ const getSassLoaders = (modules: boolean) => [
 ];
 
 const config: Configuration = {
-  devtool: !isProd && "eval-cheap-module-source-map",
+  devtool: !isProd && "cheap-module-source-map",
   entry: "./src/index.tsx",
   target: isProd ? "browserslist" : "web",
   output: {
@@ -151,7 +150,7 @@ const config: Configuration = {
   },
   optimization: {
     minimize: isProd,
-    minimizer: [new CssMinimizerPlugin(), new TerserWebpackPlugin()],
+    minimizer: ["...", new CssMinimizerPlugin()],
   },
   plugins: [
     new HtmlWebpackPlugin({

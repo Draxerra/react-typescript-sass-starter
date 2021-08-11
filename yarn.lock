@@ -2435,16 +2435,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/terser-webpack-plugin@npm:^5.0.4":
-  version: 5.0.4
-  resolution: "@types/terser-webpack-plugin@npm:5.0.4"
-  dependencies:
-    terser: ^5.3.8
-    webpack: ^5.1.0
-  checksum: 4985094f3efd2106f0a833810218af245ed3cd193749c8b294a567aef3e09f5c7f3116080c5d7c2a20ea3b607d98729dbf07e893123550c8398656c694ab51e9
-  languageName: node
-  linkType: hard
-
 "@types/testing-library__jest-dom@npm:^5.9.1":
   version: 5.14.1
   resolution: "@types/testing-library__jest-dom@npm:5.14.1"
@@ -11140,7 +11130,6 @@ fsevents@^1.2.7:
     "@types/react-redux": ^7.1.18
     "@types/react-router": ^5.1.16
     "@types/react-router-dom": ^5.1.8
-    "@types/terser-webpack-plugin": ^5.0.4
     "@types/webpack-bundle-analyzer": ^4.4.1
     "@types/webpack-manifest-plugin": ^3.0.5
     "@types/workbox-webpack-plugin": ^5.1.8
@@ -11187,7 +11176,6 @@ fsevents@^1.2.7:
     sass-loader: ^12.1.0
     start-server-and-test: ^1.13.1
     style-loader: ^3.2.1
-    terser-webpack-plugin: ^5.1.4
     ts-node: ^10.2.0
     tsconfig-paths: ^3.10.1
     tsconfig-paths-webpack-plugin: ^3.5.1
@@ -12800,7 +12788,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"terser-webpack-plugin@npm:^5.1.3, terser-webpack-plugin@npm:^5.1.4":
+"terser-webpack-plugin@npm:^5.1.3":
   version: 5.1.4
   resolution: "terser-webpack-plugin@npm:5.1.4"
   dependencies:
@@ -12829,7 +12817,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"terser@npm:^5.0.0, terser@npm:^5.3.8, terser@npm:^5.7.0":
+"terser@npm:^5.0.0, terser@npm:^5.7.0":
   version: 5.7.1
   resolution: "terser@npm:5.7.1"
   dependencies:
